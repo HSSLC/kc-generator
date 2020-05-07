@@ -1,0 +1,6 @@
+        <navPoint playOrder="%s" id="toc-%s">
+            <navLabel>
+                <text>%s</text>
+            </navLabel>
+            <content src="%s"/>
+        </navPoint>
