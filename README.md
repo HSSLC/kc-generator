@@ -32,7 +32,7 @@ config.json結構
 * `folder`:圖片根目錄名稱
 * `width`:頁面寬度
 * `height`:頁面高度
-* `cover`:封面檔案
+* `cover`:封面檔案(可選擇留空，但一定要有鍵)
 
 _*在[此檔案](https://github.com/HSSLC/kc-generator/blob/master/config.json)中有預填好部分內容的JSON_
 
