@@ -17,7 +17,7 @@
     </metadata>
     <manifest>
         <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
-        <item href="%s" id="cover-image" media-type="image/jpg"/>
+        %s
 		%s
     </manifest>
     <spine toc="ncx">
