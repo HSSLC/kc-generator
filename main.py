@@ -38,6 +38,8 @@ def main():
         #id
         #name
         #src
+    with open('cover_frame.xml', 'r') as cover_frame_file:
+        cover_frame = cover_frame_file.read()
     os.chdir('..')
     program_dir = os.getcwd()
     print('輸入工作目錄:', end='')
@@ -66,7 +68,8 @@ def main():
     ch_folders.sort(key=lambda f: int(re.sub('\D', '', f)))
     if not os.path.exists('proj') or not os.path.isdir('proj'):
         os.mkdir('proj')
-    shutil.copyfile(cover, os.path.join('proj', cover))
+    if not cover == '':
+        shutil.copyfile(cover, os.path.join('proj', cover))
     os.chdir('proj')
     if not os.path.exists('html') or not os.path.isdir('html'):
         os.mkdir('html')
@@ -114,7 +117,11 @@ def main():
             spine.append(if_frame % str(page_count + 2))
             page_count += 1
         os.chdir('..')
-    opf.write(opf_frame % (book_hash, title, lang, creator, w, h, cover, '\n\t\t'.join(manifest), '\n\t\t'.join(spine)))
+    if not cover == '':
+        cover_xml = cover_frame % cover
+    else:
+        cover_xml = ''
+    opf.write(opf_frame % (book_hash, title, lang, creator, w, h, cover_xml, '\n\t\t'.join(manifest), '\n\t\t'.join(spine)))
     opf.close()
     toc.write(toc_frame % '\n'.join(navmap))
     toc.close()
@@ -124,5 +131,8 @@ def main():
     output_name = re.sub(r'[\\/:*?"<>|]', '_', title) + '.mobi'
     os.system('%s -dont_append_source -verbose -locale en -o %s %s' % (os.path.join(program_dir, 'kindlegen.exe'), output_name, os.path.join(work_dir, 'content.opf')))
     #把輸出檔案向上移一層
-    os.rename(output_name, os.path.join('..', output_name))
+    src_file = os.path.join('..', output_name)
+    if os.path.exists(src_file) and os.path.isfile(src_file):
+        os.remove(src_file)
+    os.rename(output_name, src_file)
 main()
