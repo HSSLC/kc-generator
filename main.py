@@ -65,7 +65,7 @@ def main():
     
     book_hash = hashlib.md5(bytes(title + creator, encoding='UTF-8')).hexdigest()
     ch_folders = os.listdir(main_folder)
-    ch_folders.sort(key=lambda f: int(re.sub('\D', '', f)))
+    ch_folders.sort(key=lambda f: int(re.search('\d+', f).group(0)))
     if not os.path.exists('proj') or not os.path.isdir('proj'):
         os.mkdir('proj')
     if not cover == '':
@@ -93,7 +93,7 @@ def main():
             continue
         print(ch)
         page_files = os.listdir(ch)
-        page_files.sort(key=lambda f: int(re.sub('\D', '', f)))
+        page_files.sort(key=lambda f: int(re.search('\d+', f).group(0)))
         os.chdir(ch)
         navmap.append(navmap_frame % (page_count, page_count, ch, 'html/Page-%s.html' % page_count))
         for page in page_files:
