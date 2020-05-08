@@ -4,7 +4,7 @@
         <meta content="true" name="zero-gutter"/>
         <meta content="true" name="zero-margin"/>
         <meta content="true" name="fixed-layout"/>
-        <meta content="ccreator" name="generator"/>
+        <meta content="kc-generator" name="generator"/>
         <dc:title>%s</dc:title>
         <dc:language>%s</dc:language>
         <dc:creator>%s</dc:creator>
