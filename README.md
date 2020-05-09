@@ -1,5 +1,6 @@
 # kc-generator
 kindle comic(mobi) generator
+適用於將特定格式目錄下的圖片，編成一本kindle mobi格式的漫畫
 
 usage
 ===
@@ -29,6 +30,7 @@ config.json結構
 * `title`:書名
 * `language`:語言
 * `creator`:作者
+* `direction`:書寫方向(rl 點左側翻下一頁，lr 點右側翻下一頁)
 * `folder`:圖片根目錄位置
 * `width`:頁面寬度
 * `height`:頁面高度
@@ -74,6 +76,7 @@ _名稱後括號為類型方便理解，實際上不存在_
   "title":"測試之書",  
   "language":"zh",  
   "creator":"HSSLC",  
+  "direction":"rl",  
   "folder":"jpg",  
   "width":"800",  
   "height":"1280",  
@@ -87,7 +90,7 @@ _名稱後括號為類型方便理解，實際上不存在_
 4. 檔案生成完後程式會呼叫kindlegen.exe生成mobi，位於`測試之書`目錄下
 
 ## 此範例生成結果
-一本名為`測試之書`的書，位於`C:\測試之書\測試之書.mobi`，作者為`HSSLC`，有兩章，分別叫做`第一章 快狐`與`第二章 越懶狗`，第一章中有三頁，分別為`image1.jpg`、`image2.jpg`、`image3.jpg`，第二章中有兩頁，分別為`image4.jpg`、`image5.jpg`，此書封面為`cover.jpg`
+一本名為`測試之書`的書，翻書方向為點擊左側翻下一頁，位於`C:\測試之書\測試之書.mobi`，作者為`HSSLC`，有兩章，分別叫做`第一章 快狐`與`第二章 越懶狗`，第一章中有三頁，分別為`image1.jpg`、`image2.jpg`、`image3.jpg`，第二章中有兩頁，分別為`image4.jpg`、`image5.jpg`，此書封面為`cover.jpg`
 
 絕對是個巧合
 ===
