@@ -1,6 +1,6 @@
 # kc-generator
 kindle comic(mobi) generator  
-適用於將特定格式目錄下的圖片，編成一本kindle mobi格式的漫畫
+適用於將特定格式目錄下的圖片，自動編成一本kindle mobi格式的漫畫
 
 使用方式
 ===
@@ -30,7 +30,7 @@ config.json結構
 * `title`:書名
 * `language`:語言
 * `creator`:作者
-* `direction`:書寫方向(rl 點左側翻下一頁，lr 點右側翻下一頁)
+* `direction`:書寫方向(`rl`:點左側翻下一頁，`lr`:點右側翻下一頁)
 * `folder`:圖片根目錄位置
 * `width`:頁面寬度
 * `height`:頁面高度
