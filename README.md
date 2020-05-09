@@ -1,10 +1,10 @@
 # kc-generator
-kindle comic(mobi) generator
+kindle comic(mobi) generator  
 適用於將特定格式目錄下的圖片，編成一本kindle mobi格式的漫畫
 
-usage
+使用方式
 ===
-執行後輸入 _工作根目錄_ 路徑，程式將會根據工作根目錄指定資料夾中的圖片，生成一個mobi檔
+執行主程式`main.py`後輸入 _工作根目錄_ 路徑，程式將會根據工作根目錄指定資料夾中的圖片，生成一個mobi檔
 
 工作根目錄結構要求
 ===
@@ -52,7 +52,7 @@ _*在[此檔案](https://github.com/HSSLC/kc-generator/blob/master/config.json)�
 
 * 可以藉由修改`frames\content_frame.opf`來修改日後生成的書的資訊模板
 
-工作根目錄與config.json的生成結果範例
+工作根目錄與`config.json`的生成結果範例
 ===
 
 ## 工作根目錄範例
@@ -70,7 +70,7 @@ _名稱後括號為類型方便理解，實際上不存在_
         * `image5.jpg`(檔案)
     * `cover.jpg`(檔案)
 
-## config.json範例
+## `config.json`範例
 `
 {  
   "title":"測試之書",  
@@ -84,7 +84,7 @@ _名稱後括號為類型方便理解，實際上不存在_
 }  
 `
 ## 執行過程
-1. 執行main.py
+1. 執行`main.py`
 2. 輸入`C:\測試之書`
 3. 程式會在`測試之書`下方生成暫存目錄`proj`
 4. 檔案生成完後程式會呼叫kindlegen.exe生成mobi，位於`測試之書`目錄下
