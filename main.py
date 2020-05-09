@@ -17,8 +17,10 @@ def main():
         #title
         #language
         #creator
+        #direction
         #width
         #height
+        #cover meta
         #cover src
         #manifest
         #spine
@@ -40,6 +42,9 @@ def main():
         #src
     with open('cover_frame.xml', 'r') as cover_frame_file:
         cover_frame = cover_frame_file.read()
+        #src
+    with open('cover_meta_frame.xml', 'r') as cover_meta_frame_file:
+        cover_meta_frame = cover_meta_frame_file.read()
     os.chdir('..')
     program_dir = os.getcwd()
     print('輸入工作目錄:', end='')
@@ -59,6 +64,7 @@ def main():
         h = int(conf['height'])
         w = int(conf['width'])
         cover = conf['cover']
+        direction = conf['direction']
     except:
         print('config.json不完整')
         return
@@ -109,7 +115,7 @@ def main():
             scale = w / width
             adjh = int(height * scale)
             margin_sky_and_ground = int((h - adjh) / 2)
-            #copy page
+            #copy page image
             shutil.copyfile(page, os.path.join('..', '..','proj', 'html', 'img', '%s.jpg' % page_count))
             with open(os.path.join('..', '..','proj', 'html', 'Page-%s.html' % page_count), 'w', encoding='UTF-8') as page_html:
                 page_html.write(page_frame % (page_count, w, adjh, margin_sky_and_ground, margin_sky_and_ground, '/'.join(['img', '%s.jpg' % page_count])))
@@ -119,9 +125,11 @@ def main():
         os.chdir('..')
     if not cover == '':
         cover_xml = cover_frame % cover
+        cover_meta_xml = cover_meta_frame
     else:
         cover_xml = ''
-    opf.write(opf_frame % (book_hash, title, lang, creator, w, h, cover_xml, '\n\t\t'.join(manifest), '\n\t\t'.join(spine)))
+        cover_meta_xml = ''
+    opf.write(opf_frame % (book_hash, title, lang, creator, direction, w, h, cover_meta_xml, cover_xml, '\n\t\t'.join(manifest), '\n\t\t'.join(spine)))
     opf.close()
     toc.write(toc_frame % '\n'.join(navmap))
     toc.close()
