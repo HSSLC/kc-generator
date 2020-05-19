@@ -40,9 +40,7 @@ _*在[此檔案](https://github.com/HSSLC/kc-generator/blob/master/config.json)�
 
 注意
 ===
-* 因為排序的關係，章節根目錄及內容圖片檔名中，一定要包含阿拉伯數字，否則將程式不知如何排序，就不會繼續運作
-
-* 排序將會依照檔名中第一組阿拉伯數字排序
+* 排序將會優先依照檔名中第一組阿拉伯數字排序，若無，將會被排在連我都不知道的順序（最前或最後？窩不知道）
 
 * 不同章節間的內容圖片檔名可以重複
 
@@ -95,3 +93,6 @@ _名稱後括號為類型方便理解，實際上不存在_
 絕對是個巧合
 ===
 [manhuagui-dlr](https://github.com/HSSLC/manhuagui-dlr) 做出來的目錄結構剛好符合這個程式...
+
+## 其他資訊
+https://incognitas.net/works/kc-generator-1/
