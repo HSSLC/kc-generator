@@ -2,6 +2,11 @@ import os, json, re, shutil, hashlib
 from PIL import Image
 
 def main():
+    def sort_lambda(n):
+        try:
+            return float(re.search('(\d+(\.\d+)?)', n).group(0))
+        except:
+            return 0
     os.chdir('frames')
     with open('page_frame.html', 'r') as page_frame_file:
         page_frame = page_frame_file.read()
@@ -71,7 +76,8 @@ def main():
     
     book_hash = hashlib.md5(bytes(title + creator, encoding='UTF-8')).hexdigest()
     ch_folders = os.listdir(main_folder)
-    ch_folders.sort(key=lambda f: float(re.search('(\d+(\.\d+)?)', f).group(0)))
+    #章節排序
+    ch_folders.sort(key=sort_lambda)
     if not os.path.exists('proj') or not os.path.isdir('proj'):
         os.mkdir('proj')
     if not cover == '':
@@ -99,7 +105,8 @@ def main():
             continue
         print(ch)
         page_files = os.listdir(ch)
-        page_files.sort(key=lambda f: int(re.search('(\d+(\.\d+)?)', f).group(0)))
+        #頁面排序
+        page_files.sort(key=sort_lambda)
         os.chdir(ch)
         navmap.append(navmap_frame % (page_count, page_count, ch, 'html/Page-%s.html' % page_count))
         for page in page_files:
