@@ -94,5 +94,5 @@ _名稱後括號為類型方便理解，實際上不存在_
 ===
 [manhuagui-dlr](https://github.com/HSSLC/manhuagui-dlr) 做出來的目錄結構剛好符合這個程式...
 
-## 其他資訊
+# 其他資訊
 https://incognitas.net/works/kc-generator-1/
