@@ -1,5 +1,52 @@
 import os, json, re, shutil, hashlib
 from PIL import Image
+size = lambda d:sum(os.stat(os.path.join(cd, f)).st_size for cd, sd, fs in os.walk(d) for f in fs if os.path.isfile(os.path.join(cd, f)))
+#init
+os.chdir('frames')
+with open('page_frame.html', 'r') as page_frame_file:
+    page_frame = page_frame_file.read()
+    #title
+    #width
+    #height
+    #top
+    #bottom
+    #src
+with open('content_frame.opf', 'r') as opf_frame_file:
+    opf_frame = opf_frame_file.read()
+    #uid
+    #title
+    #language
+    #creator
+    #direction
+    #width
+    #height
+    #cover meta
+    #cover src
+    #manifest
+    #spine
+with open('opf_manifest_frame.xml', 'r') as omf_file:
+    omf_frame = omf_file.read()
+    #href
+    #id
+with open('itemref_frame.xml', 'r') as if_file:
+    if_frame = if_file.read()
+    #id
+with open('toc_frame.ncx', 'r') as toc_frame_file:
+    toc_frame = toc_frame_file.read()
+    #navmap
+with open('navmap_frame.xml', 'r') as navmap_frame_file:
+    navmap_frame = navmap_frame_file.read()
+    #playOrder
+    #id
+    #name
+    #src
+with open('cover_frame.xml', 'r') as cover_frame_file:
+    cover_frame = cover_frame_file.read()
+    #src
+with open('cover_meta_frame.xml', 'r') as cover_meta_frame_file:
+    cover_meta_frame = cover_meta_frame_file.read()
+os.chdir('..')
+program_dir = os.getcwd()
 
 def main():
     def sort_lambda(n):
@@ -7,51 +54,6 @@ def main():
             return float(re.search('(\d+(\.\d+)?)', n).group(0))
         except:
             return 0
-    os.chdir('frames')
-    with open('page_frame.html', 'r') as page_frame_file:
-        page_frame = page_frame_file.read()
-        #title
-        #width
-        #height
-        #top
-        #bottom
-        #src
-    with open('content_frame.opf', 'r') as opf_frame_file:
-        opf_frame = opf_frame_file.read()
-        #uid
-        #title
-        #language
-        #creator
-        #direction
-        #width
-        #height
-        #cover meta
-        #cover src
-        #manifest
-        #spine
-    with open('opf_manifest_frame.xml', 'r') as omf_file:
-        omf_frame = omf_file.read()
-        #href
-        #id
-    with open('itemref_frame.xml', 'r') as if_file:
-        if_frame = if_file.read()
-        #id
-    with open('toc_frame.ncx', 'r') as toc_frame_file:
-        toc_frame = toc_frame_file.read()
-        #navmap
-    with open('navmap_frame.xml', 'r') as navmap_frame_file:
-        navmap_frame = navmap_frame_file.read()
-        #playOrder
-        #id
-        #name
-        #src
-    with open('cover_frame.xml', 'r') as cover_frame_file:
-        cover_frame = cover_frame_file.read()
-        #src
-    with open('cover_meta_frame.xml', 'r') as cover_meta_frame_file:
-        cover_meta_frame = cover_meta_frame_file.read()
-    os.chdir('..')
-    program_dir = os.getcwd()
     print('輸入工作目錄:', end='')
     os.chdir(input())
     try:
@@ -76,18 +78,31 @@ def main():
     
     book_hash = hashlib.md5(bytes(title + creator, encoding='UTF-8')).hexdigest()
     ch_folders = os.listdir(main_folder)
-    #章節排序
     ch_folders.sort(key=sort_lambda)
+    #自訂章節排序
+    print('是否要自訂排序:(y/n)')
+    isusersort = input()
+    if isusersort == 'y':
+        with open('sort.txt', 'w', encoding='utf-8') as sortlist:
+            sortlist.write('\n'.join(ch_folders))
+        print('請檢查sort.txt並修改排序 請勿加入其他資訊避免錯誤')
+        print('修改完存檔並按enter繼續')
+        input()
+        with open('sort.txt', encoding='utf-8') as sortlist:
+            ch_folders = sortlist.read().split('\n')
+    #章節排序
     if not os.path.exists('proj') or not os.path.isdir('proj'):
         os.mkdir('proj')
     if not cover == '':
         shutil.copyfile(cover, os.path.join('proj', cover))
+    #進入proj目錄
     os.chdir('proj')
     if not os.path.exists('html') or not os.path.isdir('html'):
         os.mkdir('html')
     os.chdir('html')
     if not os.path.exists('img') or not os.path.isdir('img'):
         os.mkdir('img')
+    #返回工作目錄
     os.chdir('..')
     toc = open('toc.ncx', 'w', encoding='UTF-8')
     opf = open('content.opf', 'w', encoding='UTF-8')
@@ -144,7 +159,7 @@ def main():
     #呼叫kindlegen
     print('呼叫kindlegen...')
     output_name = re.sub(r'[\\/:*?"<>|]', '_', title) + '.mobi'
-    os.system('%s -dont_append_source -verbose -locale en -o %s %s' % (os.path.join(program_dir, 'kindlegen.exe'), output_name, os.path.join(work_dir, 'content.opf')))
+    os.system('""%s" -dont_append_source -verbose -locale en -o "%s" "%s""' % (os.path.join(program_dir, 'kindlegen.exe'), output_name, os.path.join(work_dir, 'content.opf')))
     #把輸出檔案向上移一層
     src_file = os.path.join('..', output_name)
     if os.path.exists(src_file) and os.path.isfile(src_file):
