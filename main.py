@@ -159,10 +159,13 @@ def main():
     #呼叫kindlegen
     print('呼叫kindlegen...')
     output_name = re.sub(r'[\\/:*?"<>|]', '_', title) + '.mobi'
-    os.system('""%s" -dont_append_source -verbose -locale en -o "%s" "%s""' % (os.path.join(program_dir, 'kindlegen.exe'), output_name, os.path.join(work_dir, 'content.opf')))
+    kgres = os.system('""%s" -dont_append_source -verbose -locale en -o "%s" "%s""' % (os.path.join(program_dir, 'kindlegen.exe'), output_name, os.path.join(work_dir, 'content.opf')))
     #把輸出檔案向上移一層
     src_file = os.path.join('..', output_name)
     if os.path.exists(src_file) and os.path.isfile(src_file):
         os.remove(src_file)
     os.rename(output_name, src_file)
+    if kgres == 1:
+        print('kindlegen傳回錯誤 請手動檢查是否有成功生成 按下Enter結束', end='')
+        input()
 main()
