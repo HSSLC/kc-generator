@@ -1,6 +1,6 @@
 # kc-generator
 kindle comic(mobi) generator  
-適用於將特定格式目錄下的圖片，自動編成一本kindle mobi格式的漫畫
+適用於將特定格式目錄下的圖片，自動編成一本kindle mobi格式的漫畫，可以省力、也不會在編排過程中被劇透
 
 使用方式
 ===
