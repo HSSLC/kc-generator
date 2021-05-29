@@ -113,7 +113,7 @@ def main():
     navmap = []
     os.chdir(main_folder)
     page_count = 1
-    print('正在創建檔案...')
+    print('正在建立檔案...')
     for ch in ch_folders:
         #run each chapter
         if not os.path.isdir(ch):
@@ -126,12 +126,12 @@ def main():
         navmap.append(navmap_frame % (page_count, page_count, ch, 'html/Page-%s.html' % page_count))
         for page in page_files:
             #run each page
-            if not os.path.isfile(page) or not page.endswith('.jpg'):
+            if not os.path.isfile(page): #or if not file is not image
                 continue
             try:
                 im = Image.open(page)
             except:
-                print('檔案錯誤: %s 已略過' % page)
+                print('檔案格式錯誤: %s 已略過' % page)
                 continue
             width, height = im.size
             scale = w / width
