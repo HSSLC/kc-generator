@@ -1,5 +1,7 @@
 import os, json, re, shutil, hashlib
 from PIL import Image
+skip_existed = True
+
 size = lambda d:sum(os.stat(os.path.join(cd, f)).st_size for cd, sd, fs in os.walk(d) for f in fs if os.path.isfile(os.path.join(cd, f)))
 #init
 os.chdir('frames')
@@ -138,9 +140,11 @@ def main():
             adjh = int(height * scale)
             margin_sky_and_ground = int((h - adjh) / 2)
             #copy page image
-            shutil.copyfile(page, os.path.join('..', '..','proj', 'html', 'img', '%s.jpg' % page_count))
-            with open(os.path.join('..', '..','proj', 'html', 'Page-%s.html' % page_count), 'w', encoding='UTF-8') as page_html:
-                page_html.write(page_frame % (page_count, w, adjh, margin_sky_and_ground, margin_sky_and_ground, '/'.join(['img', '%s.jpg' % page_count])))
+            if not os.path.isfile(os.path.join('..', '..','proj', 'html', 'img', '%s.jpg' % page_count)) and skip_existed:
+                shutil.copyfile(page, os.path.join('..', '..','proj', 'html', 'img', '%s.jpg' % page_count))
+            if not os.path.isfile(os.path.join('..', '..','proj', 'html', 'Page-%s.html' % page_count)) and skip_existed:
+                with open(os.path.join('..', '..','proj', 'html', 'Page-%s.html' % page_count), 'w', encoding='UTF-8') as page_html:
+                    page_html.write(page_frame % (page_count, w, adjh, margin_sky_and_ground, margin_sky_and_ground, '/'.join(['img', '%s.jpg' % page_count])))
             manifest.append(omf_frame % ('html/Page-%s.html' % page_count, str(page_count + 2)))
             spine.append(if_frame % str(page_count + 2))
             page_count += 1
