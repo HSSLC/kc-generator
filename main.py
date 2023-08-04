@@ -68,7 +68,7 @@ def main():
     try:
         main_folder = conf['folder']
         title = conf['title']
-        creator = conf['creator']
+        creator = conf.get('creator', conf['authors'])
         lang = conf['language']
         h = int(conf['height'])
         w = int(conf['width'])
